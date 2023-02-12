@@ -1,0 +1,745 @@
+#Port-7 Echo
+echo:
+  - Contact Echo service through netcat
+
+#Port-21 FTP
+ftp:
+  - Connections Active & Passive
+  - Connection Debugging
+  - Enumeration - Banner Grabbing
+  - Connect to FTP using starttls
+  - Unauth Enumeration through Nmap 
+  - Anonymous login
+  - Bruteforce FTP Credentials
+  - Run Nmap 'ftp-*' Script
+  - Check For FTPBounce attack
+  - Chec For Filezilla Server Vulnerability
+
+#Port-22 SSH/SFTP
+ssh:
+  - Enumeration - Banner Grabbing
+  - Run Automated ssh-audit.py tool
+  - Run ssh-keyscan for Public ssh key of Server
+  - Check Weak Cipher Algorithms thorugh Nmap/sslcan or sslyze
+  - Password And Username Bruteforce with Hydra/metasploit 
+  - Run Testssl.sh
+  - Run crackmapexec ssh to exploit through kerberos
+  - Try for SSH-MitM
+  - Check for Config Misconfiguration in Root login
+  - SFTP command execution through ssh command
+sftp:
+  - Enumeration - Banner Grabbing
+  - Run Automated ssh-audit.py tool
+  - Run ssh-keyscan for Public ssh key of Server
+  - Check Weak Cipher Algorithms thorugh Nmap/sslcan or sslyze
+  - Password And Username Bruteforce with Hydra/metasploit 
+  - Run Testssl.sh
+  - Run crackmapexec ssh to exploit through kerberos
+  - Try for SSH-MitM
+  - Check for Config Misconfiguration in Root login
+  - SFTP command execution through ssh command
+
+#Port-23 Telnet
+telnet:
+  - Enumeration - Banner Grabbing
+  - Run Nmap script include "*telnet*"
+  - Bruteforce Credentials with hydra/ncrack/medusa/metasploit
+
+#Port-25,465,587 SMTP
+smtp:
+  - Enumeration - Banner Grabbing
+  - Finding MX servers of an organisation
+  - Try NTLM Auth - Information disclosure
+  - Check For Internal server name - Information disclosure
+  - Check if you sniff some password from the packets to port 25
+  - Username Bruteforce Enumeration
+  - Run auxiliary/scanner/smtp/smtp_enum in Metasploit
+  - Try sending mail through CLI with swaks tool
+  - Check for Mail Spoofing thhrough magicspoofing tool
+  - Try running dig command with different attributes
+  - Try For smtp open relay through nmap with --script "smtp-open-relay"
+  - Check for SPF And DMARC Misconfiguration thorugh mailspoof or checkdmarc tool
+
+#Port-43 Whois?
+whois?:
+  - Enumeration through whois command
+  - Search Shodan/Censys and whois for Extra Information
+
+#Port-49 TACACS+
+tacacs:
+  - Try interceting Authentication key
+  - Bruteforce the key with loki_gt.py
+  - Try MiTM attack
+
+#Port-53 Domain/Zeroconf
+domain:
+  - Enumeration - Banner Grabbing with dig command or run 'auxiliary/gather/enum_dns' in Metasploit
+  - Try running nmap with --script "dns-nsid" and "(default and *dns*) or fcrdns or dns-srv-enum or dns-random-txid or dns-random-srcport"
+  - Try checking for zonetransfer through dig or fierce tool
+  - Try running nslookup for any extra Information
+  - Try running dnsrecon,dnsenum and dnscan tool 
+  - Check for DNS Recursion DDoS through dig
+  - Try Sending Mail to nonexistent account
+
+#Port-69 TFTP/Bittorrent-tracker
+tftp:
+  - Enumeration through Nmap with --script tftp-enum command
+  - Try Running auxiliary/admin/tftp/tftp_transfer_util in Metasploit
+  - Search on Shodan and Censys for Some Extra Information
+
+bittorrent-tracker:
+  - Enumeration through Nmap with --script tftp-enum command
+  - Try Running auxiliary/admin/tftp/tftp_transfer_util in Metasploit
+  - Search on Shodan and Censys for Some Extra Information
+
+#Port-79 Finger
+finger:
+  - Enumeration - Banner Grabbing
+  - Try For User Enumeration with finger or finger-useer-enum tool
+  - Run use auxiliary/scanner/finger/finger_users in Metasploit
+  - Try for command execution and finger bounce through finger tool
+
+#Port-80/443 HTTP/HTTPS
+http:
+  - Run Testssl.sh
+  - Run Dirsearch
+  - Check For Server Version Disclosure
+  - Check for Waf 
+  - Run Automated Scanners and CMS if it is
+  - Check for web application contains Security headers
+  - Check if application is redirecting from http to https
+  - Perform exploit if it is outdated
+
+https:
+  - Run Testssl.sh
+  - Run Dirsearch
+  - Check For Server Version Disclosure
+  - Check for Waf 
+  - Run Automated Scanners and CMS if it is
+  - Check for web application contains Security headers
+  - Check if application is redirecting from http to https
+  - Perform exploit if it is outdated
+
+#Port-88 Kerberose-sec
+kerberos-sec:
+  - Brute Force with Usernames and Passwords through kerbrute tool
+  - Attempt to get a list of user service principal names through GetUserSPNs tool
+
+#Port-110/995 POP
+pop:
+  - Enumeration- Banner Grabbing
+  - Check The capabilities of pop server with CAPA command
+  - Run nmap script --script "pop-capabilities or pop-ntlm-info"
+  - Try Bruteforcing Credentials with hydra tool
+
+pop3:
+  - Enumeration- Banner Grabbing
+  - Check The capabilities of pop3 server with CAPA command
+  - Run nmap script --script "pop3-capabilities or pop3-ntlm-info"
+  - Try Bruteforcing Credentials with hydra tool
+
+#Port-111/32771 Portmapper/Rpcbind
+rpcbind:
+  - Enumeration
+  - Run nmap -sSUC -p111
+
+portmapper:
+  - Enumeration
+  - Run nmap -sSUC -p111
+
+#Port-113 Ident
+ident:
+  - Enumeration
+  - Run nmap script for ident
+  - Try ident user Enumeration with Ident-user-enum tool 
+
+#Port-123 NTP
+ntp:
+  - Enumeration with ntpq tool
+  - Run nmap --script "ntp* and (discovery or vuln) and not (dos or brute)" -p 123
+  - Check for NTP amplification/DDos attack with ntpdc tool
+
+#Port-135,593 MSRPC
+msrpc:
+  - Identifying Exposed RPC Services with rpcdump tool
+  - Run all rpc auxiliary in Metasploit
+
+#Port-137/138/139 NetBios
+netbios-ns:
+  - Try running nmblookup and nbtscan
+  - Run nmap script with nbstat.nse
+  - Search Shodan and Censys For some extra Information
+
+netbios-dgm:
+  - Try running nmblookup and nbtscan
+  - Run nmap script with nbstat.nse
+  - Search Shodan and Censys For some extra Information
+
+#Port-139/445 SMB
+netbios-ssn:
+  - Try running nmblookup and nbtscan
+  - Run nmap script with nbstat.nse
+  - Search Shodan and Censys For some extra Information
+
+microsoft-ds:
+  - Try running nmblookup and nbtscan
+  - Run nmap script with nbstat.nse
+  - Search Shodan and Censys For some extra Information
+  - Try Running auxiliary/scanner/smb/smb_version in Metasploit
+  - Try SMB Environment Information using enum4linux/rpcclient/samrdump.py/rpcdump.py tools
+  - Enumerate Users, Groups and Logged on users
+  - Try enumerating Shared Folder Enumeration
+  - Try donwloading file with smbmap command
+  - Domain Shared Folders Search with snaffler and crackmapexec
+  - Try Authenticating using Kerberos
+  - Try Doing SMB-relay attack
+  - Chec for SMBtrap using MITMF tool
+
+#Port-143/993 IMAP
+imap:
+  - Check for imap running on Port 143 (Is unencrypted) suggest to use 993 Port
+  - Try banner grabing with netcat 
+  - Try NTLM Auth - Information disclosure through telnet
+  - Try bruteforcing imap woth Hydra
+  - Try Navigating into the imap Services  wit curl or evolution tool
+  - Try gathering Information from Shodan Search
+
+#Port-161,162,10161,10162 SNMP
+snmp:
+  - Try Enumerating SNMP with snmpbulkwalk,snmpwalk,snmp-check or nmap
+  - Check for SNMP version used (Suggested is SNMPv3) 
+  - Run nmap --script "snmp* and not snmp-brute" for more information
+  - Try Bruteforcing OID's with braa or hydra tool
+  - Try for checking following setting in snmap (rwuser noauth,rwcommunity,rwcommunity6)
+  - If SNMP write value is allowd try exploting RCE with snmpset tool
+  - Try runnning snmp scam through Braa tool
+  - Try examing snmp config files 
+
+#Port-194,6667,6660-7000 IRC
+irc:
+  - Try Enumeration with netcat or nmap tool
+  - Try running nmap --script irc-botnet-channels,irc-info,irc-unrealircd-backdoor 
+  - Try  Bruteforcing credentials through hyra or nmap
+  - Try  Searching shodan for more info
+
+#Port-264 FireWall-1
+checkpoint firewall-1:
+  - Try using metasploit auxiliary/gather/checkpoint_hostname
+  - Try Searching in shodan for more information
+
+#Port-389,636,3268,3269 LDAP
+ldap:
+  - Try Enumeration with nmap,pbis,windapsearch,etc
+  - Try Sniffing clear text creds through MITM attack
+  - Try for anonymous access 
+  - Try bypassing TLS SNI Check through ldapsearch
+  - Try Bruteforcing creds with hydra
+  - Check for null credentials with ldap search 
+  - Try extracting (users,computer,info,domain admin,domian user,etc) thorugh ldap search
+  - Try Authenticating through kerberos through ldasearch tool
+  - Try dumping all the data with the ldapdomaindump tool (post login)
+  - Try checking Configuration files for any Misconfiguration
+
+tcpwrapped:
+  - Try Enumeration with nmap,pbis,windapsearch,etc
+  - Try Sniffing clear text creds through MITM attack
+  - Try for anonymous access 
+  - Try bypassing TLS SNI Check through ldapsearch
+  - Try Bruteforcing creds with hydra
+  - Check for null credentials with ldap search 
+  - Try extracting (users,computer,info,domain admin,domian user,etc) thorugh ldap search
+  - Try Authenticating through kerberos through ldasearch tool
+  - Try dumping all the data with the ldapdomaindump tool (post login)
+  - Try checking Configuration files for any Misconfiguration
+
+#Port-500 ISAKMP
+isakmp:
+  - Try Enumerating service with the nmap
+  - Try Running the ike-scan tool
+  - Check for valid transformation used iker.py or ikerfroce tool
+  - Try Bruteforcing id with ike-scan,hydra,ikerfroce,etc
+  - Try sniffing Connections for valid Usernames thorugh fiked,wireshark,etc
+  - Try Capturing hash and cracking it (If you have vali transformation value and group name)
+  - Try Brute-forcing XAUTH username ad password with ikeforce
+  - Search ip in shodan for more information
+
+#Port-502 MODBUS
+modbus:
+  - Try runnig nmap --script modbus-discover
+  - Try using auxiliary/scanner/scada/modbusdetect in Metasploit
+  - Try using auxiliary/scanner/scada/modbus_findunitid in Metasploit
+
+#Port-512 Rexec
+exec:
+  - Try Bruteforcing Credentials with Hydra
+  - Try running command (After valid creds are found)
+
+#Port-513 Rlogin
+login:
+  - Try Bruteforcing Credentials through hyra
+  - Try Accessing Internal files through this Services (Post Login)
+
+#Port-513 rsh
+rsh:
+  - Try Bruteforcing Credentials with hydra
+  - Try execting commands through rsh
+
+#Port-515 Line Printer Daemon (LPD)
+lpd:
+  - Test the service with lpdprint and lpdtest tool
+  - Search ip in shodan For more information
+
+#Port-548 Apple Filing Protocol (AFP)
+afp:
+  - Try Running nmap  --script "afp-* and not dos and not brute" 
+  - Check auxiliary/scanner/afp/afp_server_info in Metasploit
+  - Try Bruteforcing Creds through Hydra
+
+#Port-554,8554 RTSP
+rtsp:
+  - Try running nmap with --script "rtsp-*" 
+  - Try Bruuteforcing credentials with hydra also use rtsp_authgrinder tool
+  - Try Running cameradar tool
+
+#Port-623 IPMI
+ipmi:
+  - Try Running nmap with --script ipmi-version for Enumeration
+  - Try Runnning auxiliary/scanner/ipmi/ipmi_version in metasploit (If nmap dosen't work) 
+  - Check for IPMI Authentication Bypass via Cipher 0 Vulnerability thorugh auxiliary/scanner/ipmi/ipmi_cipher_zero in Metasploit
+  - Can Also run impitool for checking IPMI Authentication Bypass via Cipher 0 Vulnerability
+  - Check for IPMI 2.0 RAKP Authentication Remote Password Hash Retrieval Vulnerability through auxiliary/scanner/ipmi/ipmi_dumphashes in Metasploit and impitool can also be used for same 
+  - Check for IPMI Anonymous Authentication Vulnerability through ipmitool 
+  - Check for  Supermicro IPMI Clear-text Passwords Vulnerability 
+  - Check for Supermicro IPMI UPnP Vulnerability using exploit/multi/upnp/libupnp_ssdp_overflow in Metasploit
+  - Try Bruteforcing Passwords with hydra
+  - Try Exploiting the BMC from the Host Through ipmitool
+  - Search ip in shodan for more information
+
+#Port-631 Internet Printing Protocol(IPP)
+ipp:
+  - Search for shodan or Duckduck go for information disclosure
+
+#Port-873 Rsync
+rsync:
+  - Try Enumerating and banner Grabbing through netcat and nmap
+  - Try Enumerating Shared folder thorugh running nmap with --script "rsync-list-modules" or auxiliary/scanner/rsync/modules_list in Metasploit
+  - Try Bruteforcing credentials through Hydra
+  - Try doing manual Rsync with rsync command in linux 
+  - Check for the rsyncd Configuration file for anykind of Misconfiguration (Post Authentication)
+
+#Port-1026 Rusersd
+nterm:
+  - Try enumerating through rusers tool
+
+rusersd:
+  - Try enumerating through rusers tool
+
+#Port-1080 Socks
+socks:
+  - Try enumerating through nmap with --script socks-auth-info
+  - Try Bruteforcing Credentials with hydra or nnmap 
+  - Try Tunnneling and Port Forwarding after getting valid Credentials
+
+#Port-1098/1099/1050(1090,1098,1099,1199,4443-4446,8999-9010,9999) Java RMI - RMI-IIOP
+ssl/java-rmi:
+  - Try Enumerating service through nmap,remote-method-guesser,etc 
+  - Run remote-method-guesser tool for finding Vulnerability
+  - Try Bruteforcing method with remote-method-guesser or rmiscout tool
+  - Search Ip in Shodan for anykind of Information Disclosed
+
+java-rmi:
+  - Try Enumerating service through nmap,remote-method-guesser,etc 
+  - Run remote-method-guesser tool for finding Vulnerability
+  - Try Bruteforcing method with remote-method-guesser or rmiscout tool
+  - Search Ip in Shodan for anykind of Information Disclosed
+
+#Port-1433 MSSQL-Microsoft SQL Server
+ms-sql-s:
+  - Try doing Enumeration through nnmap,Metasploit,etc 
+  - Run nmap with --script ms-sql-info,ms-sql-empty-password,ms-sql-xp-cmdshell,ms-sql-config,ms-sql-ntlm-info,ms-sql-tables,ms-sql-hasdbaccess,ms-sql-dac,ms-sql-dump-hashes (script args is requird)
+  - Run auxiliary/scanner/mssql/mssql_ping in Metasploit and also any other auxiliary or exploit from Metasploit
+  - Try Bruteforcing for creds through Hydra
+  - Try login with mssqlclient.py or sqsh tool (If valid Credentials was found)
+  - Try Executing OS commands with crackmapexec tool 
+  - Try Stealing NetNTLM hash / Relay attack through auxiliary/admin/mssql/mssql_ntlm_stealer in Metasploit or any other tool 
+  - Try Exploitng MSSQL Trusted links through exploit/windows/mssql/mssql_linkcrawler in Metasploit
+  - RCE with MSSQL User Defined Function - SQLHttp
+  - Check for MSSQL Privilege Escalation also use auxiliary/admin/mssql/mssql_escalate_dbowner,auxiliary/admin/mssql/mssql_escalate_execute_as in Metasploit(Post Authentication)
+  - Try Local Privilege Escalation In MSSQl 
+
+#Port-1521,1522-1529 Oracle TNS Listener
+oracle-tns:
+  - Try Enumeration thorugh nmap 
+  - Run nmap with -script "oracle-tns-version" also use auxiliary/scanner/oracle/tnslsnr_version in Metasploit
+  - Try Bruteforcing TNS listener communication (not always needed) through Hydra
+  - Try Enumerate/Bruteforce SID names can also use auxiliary/scanner/oracle/sid_enum and auxiliary/admin/oracle/tnscmd in Metasploit or else Bruteforce with Hydra
+  - Try Bruteforce credentials for valid SID name discovered 
+  - Run oscanner or odat is for searching searching valid SID and Bruteforce for Valid Credentials
+  - Try for RCE through odat tool (can oly be done with valid Credentials)
+
+#Port-1723 PPTP
+pptp:
+  - Try for Enumeration through nmap
+  - Try Briteforcing for Credentials through Hydra
+  - Check for security issue in the following version
+  - Try to crack hash with chapcrack or hashcat
+
+#Port-1883 MQTT (Mosquitto)
+mqtt:
+  - Try Enumeration with nmap
+  - Try checking request and response through wireshark
+  - Try Bruteforcing for Valid Credentials
+  - Try Running MQTT-PWN Tool 
+  - Try Searching Ip in Shodan for More Information
+
+mosquitto:
+  - Try Enumeration with nmap
+  - Try checking request and response through wireshark
+  - Try Bruteforcing for Valid Credentials
+  - Try Running MQTT-PWN Tool 
+  - Try Searching Ip in Shodan for More Information
+ 
+#Port-2049 NFS Service
+nfs:
+  - Try Enumeration with nmap and metasploit 
+  - Try Accessing files with nfsshell
+  - Check for Misconfiguration in config files
+  - Try Privilege Escalation using NFS misconfigurations
+
+#Port-2301,2381 Compaq/HP Insight Manager
+cpq-wbem:
+  - Try Bruteforcing default Credentials through Hydra
+  - Check for Misconfiguration  in Configuration files (Post Authentication)
+
+compaqdiag:
+  - Try Bruteforcing default Credentials through Hydra
+  - Check for Misconfiguration in Configuration files (Post Authentication)
+
+cpq-wbem:  
+  - Try Bruteforcing default Credentials through Hydra
+  - Check for Misconfiguration  in Configuration files (Post Authentication)
+
+applications:
+  - Try Bruteforcing default Credentials through Hydra
+  - Check for Misconfiguration  in Configuration files (Post Authentication)
+
+#Port-375,2376 Docker
+docker:
+  - Try Enumeration through docker or curl
+  - Run exploit/linux/http/docker_daemon_tcp in Metasploit
+  - Run nmap with --script "docker-*"
+  - Check for possible Privilege Escalation
+  - Run Docker-bench-security,dockscan,amicontained,clair,dockerfile-linter,dockerlint,hadolint,falco,etc for Finding vulnerabilities and checking Misconfiguration
+
+#Port-3128 Squid
+http-proxy:
+  - Try Enumeration with Curl and Nmap
+  - Run SPOSE Scanner
+
+#Port-3260 ISCSI
+iscsi?:
+  - Try Enumeration through nmap with --script=iscsi-info init 
+  - Try Bruteforcing Credentials with Hydra
+  - Run icsciadm for mounting icsci in windows and linux 
+  - Try Enumeration and discovery through icsciadm tool
+  - Search ip in the Shodan for more information
+
+#Port-3299 SAPRouter
+saprouter?:
+  - Try Enumeration with nmap and Metasploit with auxiliary/scanner/sap/sap_service_discovery in Metasploit
+  - Run auxiliary/scanner/sap/sap_router_info_request in Metasploit
+  - Try Enumerating internal hosts and services sap_router_portscanner can also run auxiliary/scanner/sap/sap_router_portscanner in Metasploit
+  - Run the above scan with changing port and Mode too
+  - Try for Blind enumeration of internal hosts with same above mentioned scanner and auxiliary of Metasploit
+  - Try exploiting CVE-2013-3319 through auxiliary/scanner/sap/sap_hostctrl_getcomputersystem in Metasploit
+  - Search for ip in shodan for more information 
+
+#Port-3306 Mysql
+mysql:
+  - Run Nmap for eneumeration with --script mysql-audit,mysql-databases,mysql-dump-hashes,mysql-empty-password,mysql-enum,mysql-info,mysql-query,mysql-users,mysql-variables,mysql-vuln-cve2012-2122
+  - Try Bruteforcing Credentials with Hydra
+  - Try running Metasploit modules for Enumeration (If nmap dosen't work or try both for Co-relation)
+  - Try MySQL arbitrary read file by client (From here below cases are for contaning valid Credentials)
+  - Try Checking For dangerous settings in configuration files
+  - Try for Privilege escalation
+  - Check for *lib_mysqludf_sys* library in .so  for linus and .dll for windows if so try fr Privilege Escalation
+  - After connecting to the Remote system try Extracting MySQL credentials from files in cat /etc/mysql/debian.cnf for linux (only work when connected to the remote port)
+
+#Port-3389 RDP
+ms-wbt-server:
+  - Try doing Enumeration with Nmap and Metasploit also use --script "rdp-enum-encryption or rdp-vuln-ms12-020 or rdp-ntlm-info"  while running nmap
+  - Check for SSL Certificate for weak Ciphers and TLS vulnerabilities
+  - Try Bruteforcing Credentials with Hydra
+  - Use rdesktop,xfreerdp in linux for connecting to the Remote system (Valid Credentials Required)
+  - Check known credentials against RDP services with the Help of rdp_check.py
+  - Try Session stealing and connect to the session with tscon or mimikatz 
+  - Run sticky-key-slayer
+  - Try RDP Process Injection (Valid Credentials Required)
+  - Try Using AutoRDPwn tool (Post Login Exploiting)
+
+#Port-3632 distcc
+distccd:
+  - Try Enumeration through nmap and Metasploit
+  - Check for port vulnerable to CVE-2004-2687 with exploit/unix/misc/distcc_exec in Metasploit or  --script distcc-exec --script-args="distcc-exec.cmd='id'" in nmap
+
+#Port-3690 Subversion (svn server)
+svnserve:
+  - Try Banner grabbing with Nmap
+  - Try Enummeration with svn command
+
+Subversion:
+  - Try Banner grabbing with Nmap
+  - Try Enummeration with svn command
+
+svnserve Subversion:
+  - Try Banner grabbing with Nmap
+  - Try Enummeration with svn command
+
+#Port-3702 WS-Discovery
+
+#Port-4369 Erlang Port Mapper Daemon (epmd)
+epmd:
+  - Try Enumeration with Nmap use --script epmd-info
+  - Try checking RCE with exploit/multi/misc/erlang_cookie_rce through Metasploit or else use erl in linux 
+  - Try Searching ip in Shodan for more Information
+
+#Port-4786 Cisco Smart Install
+smart-install:
+  - Try Enumeration through nmap and Metasploit
+  - Check if it is vulnearble to CVE-2018–0171 with the help of SIET Tool 
+
+#Port-5000 Docker Registery
+#http:
+#- Try Ennumeration through nmap,docker and curl
+#- Run docker regiestery grabber
+
+#Port-5353 Multicast DNS (mDNS) and DNS-SD
+zeroconf:
+  - Try Enumeration through nmap
+  - Use pholus3 for network level enumeration
+  - Check Abusing the mDNS Probing Phase with pholus3 tool 
+  - Also try for Spoofing/MitM Attack
+
+#Port-5432/5433 Postgresql
+pgsql:
+  - Try eneumeration through nmap and Metasploit
+  - Try Bruteforcing Credentials with Hydra
+  - Try Reading directories and files (Post exploitation)
+  - Try RCE withh the help of multi/postgres/postgres_copy_from_program_cmd_exec in Metasploit(Post exploitation)
+  - Try For Privilege escalation to super user (Post exploitation)
+  - Use metasploit modules realted to postgres
+
+#Port-5439 Redshift
+#same as pgsql testcases realted to aws
+
+#Port-5555 Android Debug Bridge
+adb:
+  - Try adb connect command to connect to get the shell also try to Escalation to root 
+  - Try adb pull after getting connect for dumping data from devices 
+
+#Port-5601 Kibana
+esmagent:
+  - Check for SSL/TLS enforced 
+  - Check for able to autheticate without Credentials
+  - Perform elasticsearch test cases Port no. 9200
+
+#Port-5671,5672 AMQP
+amqp:
+  - Try Enumeration with nmap including --script amqp-info in Nmap
+  - Check for outdated versions and components (exploit if so)
+  - Search ip in shodan for more Information
+
+#Port-5800,5801,5900,5901 VNC
+vnc:
+  - Try Enumeration with metasploit use auxiliary/scanner/vnc/vnc_none_auth
+  - Run nmap with --script vnc-info,realvnc-auth-bypass,vnc-title
+  - Try Bruteforcing Credentials with Hydra
+  - Try Connecting to vnc through linux with vnc viewer
+  - Search ip in shodan for more Information
+
+#Port-5984,6984 CouchDB
+couchdb:
+  - Try Enumeration through nmap and Metasploit
+  - Also try deep enumerating through different endpoints
+  - Try Accessing database list with curl at _all_dbs endpoint
+  - Check for CouchDB Privilege Escalation CVE-2017-12635,CVE-2017-12636
+  - Check for CVE-2018-8007  
+
+#Port-5985,5986 WinRm
+winrm:
+  - Try  running multiple invoke-command
+  - Try Bruteforcing Credentials through crackmapexec or hydra
+  - Run evil-winrm or try carcking hash with evil-winrm (if found)
+  - Search ip on shodan for more information
+  - Try exploiting CVE-2021-38647
+
+wsman:
+  - Try  running multiple invoke-command
+  - Try Bruteforcing Credentials through crackmapexec or hydra
+  - Run evil-winrm or try carcking hash with evil-winrm (if found)
+  - Search ip on shodan for more information
+  - Try exploiting CVE-2021-38647
+
+#Port-5985,5986 OMI (included in winrm)
+
+#Port-6000 X11
+X11:
+  - Try enumeration through Metasploit using auxiliary/scanner/x11/open_x11 and Nmap with --script x11-access
+  - Verify connection with xdpyinfo and xwininfo
+  - Try using xspy for sniffing keyboard keystrokes 
+  - Try capturing screenshot with xwd 
+  - Run xrdp.py for connecting to system also try XWatchwin
+  - Run Metasploit use exploit/unix/x11/x11_keyboard_exec
+  - Search ip in Shodan for more Information
+
+#Port-6379 Redis
+redis:
+  - Try enumeration through nmap with --script redis-info and Metasploit with auxiliary/scanner/redis/redis_server 
+  - Run nc and redis-cli
+  - Try Accessing redis without Credentials
+  - Try Bruteforcing for valid Credentials through Hydra
+  - Try Dumping database with redis-dump or redis-utils
+  - Try redis RCE with redis-rogue-server.py tool (works for redis version <=5.0.5)
+  - Try exploiting CVE-2022-0543
+
+#Port-8009 Apache JServ Protocol (AJP)
+ajp13:
+  - Try Enumeration with nmap and Metasploit
+  - Try exploiting CVE-2020-1938
+  - Run nmap with --script ajp-auth,ajp-headers,ajp-methods,ajp-request
+  - Try Bruteforcing Credentials with Hydra
+  - Run exploit/multi/http/tomcat_mgr_deploy module in Metasploit
+
+#Port-8086 InfluxDB
+#use auxiliary/scanner/http/influxdb_enum in Metasploit
+
+#Port-8089 Splunkd
+# check for defaul credentials
+
+#Port-8333,18333,38333,18444 Bitcoin
+bitcoin:
+  - Try Enumeration through nmap with --script bitcoin-info --script bitcoin-getaddr
+  - Search ip in shodan for more Information
+
+#Port-9000 FastCGI
+fastcgi: 
+  - Check for RCE with the available script on github
+
+
+#Port-9001 HSQLDB
+jdbc:
+  - Check login with default Credentials which is username-sa and password-{blank}
+  - Try information gathering through HSQLDB tool 
+
+#Port-9042/9160 Cassandra
+cassandra:
+  - Try Enumeration with cqlsh tool and nmap with --script cassandra-info
+  - Search ip in shodan for more Information
+  - Try Bruteforcing Credentials with Hydra
+
+cassandra-native:
+  - Try Enumeration with cqlsh tool and nmap with --script cassandra-info
+  - Search ip in shodan for more Information
+  - Try Bruteforcing Credentials with Hydra
+
+#Port-9100 Raw Printing (JetDirect, AppSocket, PDL-datastream)
+jetdirect:
+  - Try Enumeration Through Netcat 
+  - Run nmap with --script pjl-ready-message 
+  - Run Metasploit all auxiliary modules for printer_*
+  - Try using PRET tool for exploitation
+  - Search ip in shodan for more information
+
+#Port-9200 Elasticsearch
+wsp:
+  - Try banner grabbing with accessing the service port in the browser
+  - Check if the authentication is enforced
+  - Try Bruteforcing Credentials through Hydra (if authentication is enforced)
+  - Try to check for Username enumeration through Hydra
+  - Try accessing all default and important endpoints for information or use horuz tool for fuzzing
+  - Try writing data with Post request on the endpoints
+  - Run auxiliary/scanner/elasticsearch/indices_enum Metasploit Module 
+  - Run nmap script for Elasticsearch available in github which is nmap-elasticsearch-nse
+
+elasticsearch:
+  - Try banner grabbing with accessing the service port in the browser
+  - Check if the authentication is enforced
+  - Try Bruteforcing Credentials through Hydra (if authentication is enforced)
+  - Try to check for Username enumeration through Hydra
+  - Try accessing all default and important endpoints for information or use horuz tool for fuzzing
+  - Try writing data with Post request on the endpoints
+  - Run auxiliary/scanner/elasticsearch/indices_enum Metasploit Module 
+  - Run nmap script for Elasticsearch available in github which is nmap-elasticsearch-nse
+
+#Port-10000 Network Data Management Protocol (ndmp)
+ndmp:
+  - Try enumeration through nmap with --script "ndmp-fs-info or ndmp-version"
+  - Check for ndmp version has a Vulnerability or outdated
+  - Search ip in shodan for more Information
+
+###############################################################UNKNOWN SERVICES#####################################################
+#Port-11211 Memcache
+#Port-44134 Tiller (Helm)
+#named as unknown  service in nmap
+unknown:
+  - Try running nmap script --script memcached-info 
+  - Run metasploit moudules named auxiliary/gather/memcached_extractor, auxiliary/scanner/memcached/memcached_amp
+  - Search for Ip in shodan and censys for more information
+  #Tiller (Helm)
+  - Try running helm-tiller-pwn tool (For port 44134)
+###################################################################################################################################
+
+#Port-15672 RabbitMQ Management
+rabbitmq:
+  - Try with login using default Credentials which is guest-guest
+  - Search shodan for more Information
+
+#Port-24007,24008,24009,49152 GlusterFS
+rpcbind:
+  - Try accessing service with gluster tool
+
+ssl/unknown:
+  - Try accessing service with gluster tool
+
+#Port-27017,27018 MongoDB
+mongodb:
+  - Try Enumeration through nmap using --script "mongo* and default"
+  - Check is Password is required during login for Admin account
+  - Try Bruteforcing Credentials with hydra or nmap tools
+
+
+#Port-44818 EthernetIP
+EtherNet/IP:
+  - Try Enumeration through nmap with --script enip-info
+  - Try running cpppo tool
+  - Search ip in shodan for more Information
+
+#Port-47808 BACNet -- Building Automation and Control NetworksEnumerate
+BACNet:
+  - Try Enumeration through nmap with --script bacnet-info --script-args full=yes
+  - Try Running BAC0 tool and access the service running in the port
+  - Search ip in shodan for more Information
+
+BACNet -- Building Automation and Control NetworksEnumerate:
+  - Try Enumeration through nmap with --script bacnet-info --script-args full=yes
+  - Try Running BAC0 tool and access the service running in the port
+  - Search ip in shodan for more Information
+
+#Port-50030,50060,50070,50075,50090 Hadoop
+hadoop:
+  - Run the below nmap script according to the ports 
+  - --script hadoop-jobtracker-info (Port-50030)
+  - --script hadoop-tasktracker-info (Port-50060)
+  - --script hadoop-namenode-info (Port-50070)
+  - --script hadoop-datanode-info (Port-50075)
+  - --script hadoop-secondary-namenode-info (Port-50090) 
+  - Check for Authentication is configured 
+  - Search ip in shodan for more Information
+
+
+
+
+
+
+
+

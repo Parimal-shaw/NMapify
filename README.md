@@ -11,7 +11,7 @@ This tool extract all the open ports of all the ip provided by Nmap (Network Map
 All the Test Cases have been taken from [Hacktricks](https://book.hacktricks.xyz/network-services-pentesting/)<br />
 
 This tool helps us to convert the following Nmap output to the Mindmap <br />
-<img src="/images/Nmap_output.png" width="500" height="250">    <img src="/images/mindmap.png" width="500" height="250"><br />
+<img src="/images/Nmap_output.png" width="400" height="250">    <img src="/images/mindmap.png" width="400" height="250"><br />
 To Preview the mindmap and to make changes to it we require [Freemind](https://en.softonic.com/download/freemind/windows/post-download/v/1.0.1) Application <img src="https://upload.wikimedia.org/wikipedia/commons/d/d9/Free_Mind.png"  width="20" height="20"> <br />
 
 ## Requirements

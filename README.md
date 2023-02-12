@@ -15,7 +15,7 @@ This tool helps us to convert the following Nmap output to the Mindmap <br />
 To Preview the mindmap and to make changes to it we require [Freemind](https://en.softonic.com/download/freemind/windows/post-download/v/1.0.1) Application <img src="https://upload.wikimedia.org/wikipedia/commons/d/d9/Free_Mind.png"  width="20" height="20"> <br />
 
 ## Requirements
-__Minmdap Viewer:__<br />
+__Mindmap Viewer:__<br />
 [Freemind v 1.0.1](https://en.softonic.com/download/freemind/windows/post-download/v/1.0.1) (Works best with this Version)
 
 ## Installations

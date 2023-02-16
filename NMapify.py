@@ -89,7 +89,7 @@ print(*ipaddress_list_new,sep ="\n")'''
 temp1 = []
 for x in f:
 	new3 = re.findall("\<port protocol\=.*. portid\=.*.\>\<state state\=\"open\" reason\=.*. reason_ttl\=.*.\/\>\<service name\=\".*.\" product\=|\<port protocol\=.*. portid\=.*.\>\<state state\=\"open\" reason\=.*. reason_ttl\=.*.\/\>\<service name\=\".*.\" servicefp\=|\<port protocol\=.*. portid\=.*.\>\<state state\=\"open\" reason\=.*. reason_ttl\=.*.\/\>\<service name\=\".*.\" tunnel\=|\<port protocol\=.*. portid\=.*.\>\<state state\=\"open\" reason\=.*. reason_ttl\=.*.\/\>\<service name\=\".*.\" method\=|\<port protocol\=.*. portid\=.*.\>\<state state\=\"open\" reason\=.*. reason_ttl\=.*.\/\>\<service name\=\".*.\" extrainfo=|\<port protocol\=.*. portid\=.*.\>\<state state\=\"open\" reason\=.*. reason_ttl\=.*.\/\>|<address.*./>",str(x))
-	new4 = re.sub("\[\'<address addr=\"|\" addrtype=\"ipv4\" />\'\]|\[\]|\<port protocol=\"(.*?)\" portid=\"|\>|\<state state=\"open\"|reason\=\"(.*?)\"|product\=|reason_ttl=\"(.*?)\"|\<service name\= \|\/|\"|\'|\[|\]|addrstype=\"ipv4\"|\/|servicefp\=|tunnel\=|method\=|extrainfo\=\"(.*?)\"","",str(new3))
+	new4 = re.sub("\[\'<address addr=\"|\" addrtype=\"ipv4\" />\'\]|\[\]|\<port protocol=\"(.*?)\" portid=\"|\>|\<state state=\"open\"|reason\=\"(.*?)\"|product\=|reason_ttl=\"(.*?)\"|\<service name\= \|\/|\"|\'|\[|\]|addrstype=\"ipv4\"|\/|servicefp\=|tunnel\=|method\=\"(.*?)\"|extrainfo\=\"(.*?)\"","",str(new3))
 	new5 = re.sub("\/\<service name\=|\<service name\=",":",str(new4))
 	new6 = re.sub(" ","",str(new5))
 	temp1.append(new6)

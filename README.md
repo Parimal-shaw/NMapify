@@ -21,7 +21,7 @@ __Mindmap Viewer:__<br />
 ## Installations
 1. We need to download the files <br />
 ```
-$ git clone https://github.com/Parimal-s/NMapify.git
+$ git clone https://github.com/Parimal-shaw/NMapify.git
 ```
 
 2. Go the the Nmapify directory

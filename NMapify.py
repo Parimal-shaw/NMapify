@@ -1,15 +1,10 @@
 import xml.etree.ElementTree as trees
-import sys
 import re
 import yaml
-import pyfiglet
 from pyfiglet import Figlet
-import time
-from colorama import init, Fore, Back, Style
 import argparse
 from rich import print as rprint
 
-init()
 custom_fig = Figlet(font="banner3-D")
 print(custom_fig.renderText("NMapify"))
 Ports = ["25", "26", "22", "443", "80", "8080", "169", "553", "449", "2272"]

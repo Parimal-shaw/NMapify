@@ -9,8 +9,11 @@ from colorama import init, Fore, Back, Style
 
 Ports = ["25", "26", "22", "443", "80", "8080", "169", "553", "449", "2272"]
 
-file = sys.argv[1]
-
+try:
+    file = sys.argv[1]
+except IndexError:
+    print("no xml file path given")
+    sys.exit()
 init()
 custom_fig = Figlet(font="banner3-D")
 print(custom_fig.renderText("NMapify"))

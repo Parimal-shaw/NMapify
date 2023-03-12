@@ -14,19 +14,14 @@ custom_fig = Figlet(font="banner3-D")
 print(custom_fig.renderText("NMapify"))
 Ports = ["25", "26", "22", "443", "80", "8080", "169", "553", "449", "2272"]
 
-def help_message():
-    rprint("[yellow]Provide Nmap Output In XML Format[/yellow]")
-    rprint("[red]Command Format:[/red] [green]Python NMapify.py path/to/file/nmap_output.xml [/green]\n")
-
-parser = argparse.ArgumentParser(description=help_message())
-parser.add_argument(dest="file", help="xml file path")
+parser = argparse.ArgumentParser()#description=help_message(), )
+parser.add_argument(dest="file", help="nmap xml file path (path/to/file)")
 args = parser.parse_args()
 
 
+rprint("[green]Please Wait it may Take Some Time ...[/green]")
 
-print(Fore.GREEN + "Please Wait it may Take Some Time ...", end="\n")
-
-def GenerateXML(fileName):
+def GenerateXML():
     root = trees.Element("node")
     root.set("Text", "Nmap_output")
 
@@ -71,47 +66,33 @@ def GenerateXML(fileName):
     # subelem3.set("Text",config)
 
     tree = trees.ElementTree(root)
-    print(Fore.GREEN + "Generating Mindmap ...", end="\n")
-    time.sleep(2)
+    rprint("[green]Generating Mindmap ...[/green]")
     with open("Output.mm", "wb") as files:
         tree.write(files)
 
 
-with open(args.file, "r") as file:
-    xml_string = file.read()
-    xml_string = re.sub(r"<hosthint>.*?</hosthint>", "", xml_string, flags=re.DOTALL)
-    # print(xml_string)
-
-
-# f= open(file)
-ipaddress_with_blank = []
-"""
-for x in f:
-	new1 = re.findall("<address.*./>",str(x))
-	new2 = re.sub("\[\'<address addr=\"|\" addrtype=\"ipv4\" />\'\]|\[\]","",str(new1))
-	ipaddress_with_blank.append(new2)
-ipaddress_list_new = [x for x in ipaddress_with_blank if x != '']
-print(*ipaddress_list_new,sep ="\n")"""
-
-temp1 = []
-for x in xml_string.split("\n"):
-    new9 = re.sub(r"<hosthint>.*?</hosthint>", "", str(x), flags=re.DOTALL)
-    new3 = re.findall('\<port protocol\=.*. portid\=.*.\>\<state state\="open" reason\=.*. reason_ttl\=.*.\/\>\<service name\=".*." product\=|\<port protocol\=.*. portid\=.*.\>\<state state\="open" reason\=.*. reason_ttl\=.*.\/\>\<service name\=".*." servicefp\=|\<port protocol\=.*. portid\=.*.\>\<state state\="open" reason\=.*. reason_ttl\=.*.\/\>\<service name\=".*." tunnel\=|\<port protocol\=.*. portid\=.*.\>\<state state\="open" reason\=.*. reason_ttl\=.*.\/\>\<service name\=".*." method\=|\<port protocol\=.*. portid\=.*.\>\<state state\="open" reason\=.*. reason_ttl\=.*.\/\>\<service name\=".*." extrainfo=|\<port protocol\=.*. portid\=.*.\>\<state state\="open" reason\=.*. reason_ttl\=.*.\/\>|<address.*./>',str(new9),)
-    new4 = re.sub('\[\'<address addr="|" addrtype="ipv4" />\'\]|\[\]|\<port protocol="(.*?)" portid="|\>|\<state state="open"|reason\="(.*?)"|product\=|reason_ttl="(.*?)"|\<service name\= \|\/|"|\'|\[|\]|addrstype="ipv4"|\/|servicefp\=|tunnel\=|method\="(.*?)"|extrainfo\="(.*?)"|addrtype\="ipv4"|method\=',"",str(new3),)
-    new5 = re.sub("\/\<service name\=|\<service name\=", ":", str(new4))
-    new6 = re.sub(" ", "", str(new5))
-    temp1.append(new6)
-new_port_list = [x for x in temp1 if x != ""]
-new_list = [x for element in new_port_list for x in re.split((":"), element)]
-new_list2 = [x for x in new_list if x]
-# print(*new_port_list,sep='\n')
-print("Fetching Data from XML file ...")
-time.sleep(2)
-# print(str(new_port_list))
-# print(str(new_list))
-# print(str(new_list2))
 # Driver Code
 if __name__ == "__main__":
-    GenerateXML("tem.mm")
+    with open(args.file, "r") as file:
+        xml_string = file.read()
+        xml_string = re.sub(r"<hosthint>.*?</hosthint>", "", xml_string, flags=re.DOTALL)
 
-print(Fore.GREEN + "Mindmap Has Been Generated Succesfully.")
+
+    ipaddress_with_blank = []
+
+    temp1 = []
+    for x in xml_string.split("\n"):
+        new9 = re.sub(r"<hosthint>.*?</hosthint>", "", str(x), flags=re.DOTALL)
+        new3 = re.findall('\<port protocol\=.*. portid\=.*.\>\<state state\="open" reason\=.*. reason_ttl\=.*.\/\>\<service name\=".*." product\=|\<port protocol\=.*. portid\=.*.\>\<state state\="open" reason\=.*. reason_ttl\=.*.\/\>\<service name\=".*." servicefp\=|\<port protocol\=.*. portid\=.*.\>\<state state\="open" reason\=.*. reason_ttl\=.*.\/\>\<service name\=".*." tunnel\=|\<port protocol\=.*. portid\=.*.\>\<state state\="open" reason\=.*. reason_ttl\=.*.\/\>\<service name\=".*." method\=|\<port protocol\=.*. portid\=.*.\>\<state state\="open" reason\=.*. reason_ttl\=.*.\/\>\<service name\=".*." extrainfo=|\<port protocol\=.*. portid\=.*.\>\<state state\="open" reason\=.*. reason_ttl\=.*.\/\>|<address.*./>',str(new9),)
+        new4 = re.sub('\[\'<address addr="|" addrtype="ipv4" />\'\]|\[\]|\<port protocol="(.*?)" portid="|\>|\<state state="open"|reason\="(.*?)"|product\=|reason_ttl="(.*?)"|\<service name\= \|\/|"|\'|\[|\]|addrstype="ipv4"|\/|servicefp\=|tunnel\=|method\="(.*?)"|extrainfo\="(.*?)"|addrtype\="ipv4"|method\=',"",str(new3),)
+        new5 = re.sub("\/\<service name\=|\<service name\=", ":", str(new4))
+        new6 = re.sub(" ", "", str(new5))
+        temp1.append(new6)
+    new_port_list = [x for x in temp1 if x != ""]
+    new_list = [x for element in new_port_list for x in re.split((":"), element)]
+    new_list2 = [x for x in new_list if x]
+
+    rprint("[green]Fetching Data from XML file ...[/green]")
+    GenerateXML()
+
+    rprint("[green]Mindmap Has Been Generated Succesfully.[/green]")

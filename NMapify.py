@@ -6,27 +6,25 @@ import pyfiglet
 from pyfiglet import Figlet
 import time
 from colorama import init, Fore, Back, Style
+import argparse
+from rich import print as rprint
 
-Ports = ["25", "26", "22", "443", "80", "8080", "169", "553", "449", "2272"]
-
-try:
-    file = sys.argv[1]
-except IndexError:
-    print("no xml file path given")
-    sys.exit()
 init()
 custom_fig = Figlet(font="banner3-D")
 print(custom_fig.renderText("NMapify"))
+Ports = ["25", "26", "22", "443", "80", "8080", "169", "553", "449", "2272"]
 
-if str(sys.argv[1]) == "-h":
-    print(Fore.YELLOW+"Usage:", end="\n")
-    print(Fore.YELLOW+"Provide Nmap Output In XML Format", end="\n")
-    print(Fore.RED+"Command Format:"+Fore.GREEN+" Python NMapify.py [/path/to/file/nmap_output.xml]",end="\n",)
-    exit()
+def help_message():
+    rprint("[yellow]Provide Nmap Output In XML Format[/yellow]")
+    rprint("[red]Command Format:[/red] [green]Python NMapify.py path/to/file/nmap_output.xml [/green]\n")
+
+parser = argparse.ArgumentParser(description=help_message())
+parser.add_argument(dest="file", help="xml file path")
+args = parser.parse_args()
+
+
 
 print(Fore.GREEN + "Please Wait it may Take Some Time ...", end="\n")
-#time.sleep(2)
-
 
 def GenerateXML(fileName):
     root = trees.Element("node")
@@ -79,7 +77,7 @@ def GenerateXML(fileName):
         tree.write(files)
 
 
-with open(file, "r") as file:
+with open(args.file, "r") as file:
     xml_string = file.read()
     xml_string = re.sub(r"<hosthint>.*?</hosthint>", "", xml_string, flags=re.DOTALL)
     # print(xml_string)

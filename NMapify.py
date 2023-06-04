@@ -4,15 +4,20 @@ import yaml
 from pyfiglet import Figlet
 import argparse
 from rich import print as rprint
+from rich.text import Text
+from rich.console import Console
 
 custom_fig = Figlet(font="banner3-D")
-print(custom_fig.renderText("NMapify"))
+console = Console()
+rprint(Text(custom_fig.renderText("NMapify"), style="green"))
+rprint(Text("Version 0.2", style="red"))
+
 Ports = ["25", "26", "22", "443", "80", "8080", "169", "553", "449", "2272"]
 
 parser = argparse.ArgumentParser()#description=help_message(), )
 parser.add_argument("-f","--file",dest="file",required=True, help="Nmap XML File Path (path/to/file)")
 parser.add_argument("-o","--output",dest="output",required=True, help="Output File Path")
-parser.add_argument("-t","--test_cases",dest="testcases", help="Test cases File Path in YAML format only.")
+parser.add_argument("-t","--test_cases",dest="testcases", default='test_cases.yaml',help="Test cases File Path in YAML format only.")
 args = parser.parse_args()
 
 
@@ -48,28 +53,19 @@ def GenerateXML():
             subelem2_sub1.set("Bold", "true")
             subelem2_sub1.set("Name", "SansSerif")
             subelem2_sub1.set("Size", "12")
-            if args.testcases:
-                with open(args.testcases) as file:
-                    config = yaml.safe_load(file)
-                for x, y in config.items():
+            
+            with open(args.testcases) as file:
+                config = yaml.safe_load(file)
+                file.close()
+            for x, y in config.items():
                     # print(x)
-                    if str(x) == str(elements):
-                        for data in y:
-                            subelem3 = trees.SubElement(subelem2, "node")
-                            subelem3.set("Text", data)
-                    else:
-                        continue
-            else:
-                with open("test_cases.yaml") as file:
-                    config = yaml.safe_load(file)
-                    for x, y in config.items():
-                        # print(x)
-                        if str(x) == str(elements):
-                            for data in y:
-                                subelem3 = trees.SubElement(subelem2, "node")
-                                subelem3.set("Text", data)
-                        else:
-                            continue
+                if str(x) == str(elements):
+                    for data in y:
+                        subelem3 = trees.SubElement(subelem2, "node")
+                        subelem3.set("Text", data)
+                else:
+                    continue
+    
 
     # subelem3 = trees.SubElement(subelem2,"node")
     # subelem3.set("Text",config)
@@ -78,6 +74,7 @@ def GenerateXML():
     rprint("[green]Generating Mindmap ...[/green]")
     with open(args.output, "wb") as files:
         tree.write(files)
+        files.close()
 
 
 # Driver Code

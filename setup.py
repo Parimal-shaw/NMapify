@@ -34,7 +34,7 @@ setup(
     python_requires='>=3.4',
     entry_points={
         'console_scripts': [
-            'androset = androset:main'
+            'NMapify = NMapify:main'
         ]
     },
     keywords=['NMapify', 'network', 'nmap', 'pentesting', 'security'],

@@ -34,7 +34,8 @@ setup(
     python_requires='>=3.4',
     entry_points={
         'console_scripts': [
-            'NMapify = NMapify:main'
+            'NMapify = NMapify:main',
+            'nmapify = NMapify:main'
         ]
     },
     keywords=['NMapify', 'network', 'nmap', 'pentesting', 'security'],

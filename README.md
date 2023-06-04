@@ -17,7 +17,13 @@ NMapify is a powerful Python-based tool that enables users to generate mind maps
 
 ## Installation
 
+### Pip Installation
 
+```bash
+  pip install NMapify
+```
+
+### Manual Installation
 ```bash
   git clone https://github.com/Parimal-shaw/NMapify.git
   cd NMapify
@@ -30,10 +36,15 @@ NMapify is a powerful Python-based tool that enables users to generate mind maps
 The generated output can be opened using Freemind.
 
 ```bash
-python NMapify.py /path/to/nmap_output.xml
+python NMapify.py -f nmap-output.xml -o output.mm
 ```
 
 
 ## Acknowledgements
 
  - [HackTricks Test Cases](https://book.hacktricks.xyz/welcome/readme)
+
+
+## Screenshot
+
+ <img src="https://raw.githubusercontent.com/Parimal-shaw/NMapify/main/images/mindmap.png"  height="300"/>

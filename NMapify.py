@@ -6,13 +6,11 @@ import argparse
 from rich import print as rprint
 from rich.text import Text
 from rich.console import Console
-
+from lxml import etree
 custom_fig = Figlet(font="banner3-D")
 console = Console()
 rprint(Text(custom_fig.renderText("NMapify"), style="green"))
-rprint(Text("Version 0.2", style="red"))
-
-Ports = ["25", "26", "22", "443", "80", "8080", "169", "553", "449", "2272"]
+rprint(Text("Version 0.3", style="red"))
 
 parser = argparse.ArgumentParser()#description=help_message(), )
 parser.add_argument("-f","--file",dest="file",required=True, help="Nmap XML File Path (path/to/file)")
@@ -23,10 +21,9 @@ args = parser.parse_args()
 
 rprint("[green]Please Wait it may Take Some Time ...[/green]")
 
-def GenerateXML():
+def GenerateXML(new_list2):
     root = trees.Element("node")
     root.set("Text", "Nmap_output")
-
     # Child node 1 for ip address
     for elements in new_list2:
         if re.match("[0-9]{0,2}.\.[0-9]{0,2}.\.[0-9]{0,2}.\.[0-9]{0,2}", elements):
@@ -65,7 +62,6 @@ def GenerateXML():
                         subelem3.set("Text", data)
                 else:
                     continue
-    
 
     # subelem3 = trees.SubElement(subelem2,"node")
     # subelem3.set("Text",config)
@@ -76,29 +72,86 @@ def GenerateXML():
         tree.write(files)
         files.close()
 
+def xml_parser(file_path):
+        new_list2 = []                        
+        for event, elem in etree.iterparse(file_path, events=("end",), tag="host"):
+                address = elem.find(".//address")
+                if address is not None:
+                    new_list2.append(address.attrib.get("addr"))
+                    #print("Address:", address.attrib.get("addr"))
+                    #print("Address type:", address.attrib.get("addrtype"))
+
+                for port in elem.findall(".//port"):
+                    #portid = port.attrib.get("portid")
+                    #protocol = port.attrib.get("protocol")
+                    #print("Port ID:", portid)
+                    new_list2.append(port.attrib.get("portid")+'/'+port.attrib.get("protocol"))
+                    #print("Protocol:", protocol)
+
+                    state_elem = port.find("state")
+                    state = state_elem.attrib.get("state") if state_elem is not None else "unknown"
+                    #print("State:", state)
+
+                    service_elem = port.find("service")
+                    #service = service_elem.attrib.get("name") if service_elem is not None else "unknown"
+                    #print("Service:", service)
+                    new_list2.append(service_elem.attrib.get("name"))
+
+                    # Free memory
+                elem.clear()
+        #print(new_list2)
+
+        rprint("[green]Fetching Data from XML file ...[/green]")
+        GenerateXML(new_list2)
+
+def normal_parser(normal_file_output):
+    normal_list2 = []
+    for lines in normal_file_output.splitlines():
+        #extract IP address
+        new_line1 = re.findall( r'Nmap scan report for (.+)', lines, re.DOTALL)
+        normal_list2.append(new_line1)
+        #print(new_line1)
+        #Extract Port Number
+        newline2 = re.findall('.*. open', lines, re.DOTALL)
+        newline2 = re.sub( ' open', '', str(newline2)).strip()
+        newline2 = re.sub( ' ', '', str(newline2))
+        #print(newline2)
+        normal_list2.append(newline2)
+        newline3 = newline2 = re.findall('open .*.', lines, re.DOTALL)
+        newline3 = re.sub( 'open ', '', str(newline3))
+        newline3 = re.sub( ' ', '', str(newline3))  
+        #print(newline3)
+        normal_list2.append(newline3)
+    #print(normal_list2)
+    cleaned = []
+    for item in normal_list2:
+        if isinstance(item, list) and item:  # Non-empty list
+            cleaned.append(item[0])
+        elif isinstance(item, str) and item not in ['[]', '']:
+            # Extract the value inside the string list
+            match = re.match(r"\['(.+?)'\]", item)
+            if match:
+                val = match.group(1)
+                cleaned.append(val)
+    GenerateXML(cleaned)
+
+def is_xml_file(file_path):
+    try:
+        with open(file_path, 'rb') as f:
+            etree.parse(f)
+        return True
+    except (etree.XMLSyntaxError, OSError):
+        return False
 
 # Driver Code
 if __name__ == "__main__":
     with open(args.file, "r") as file:
-        xml_string = file.read()
-        xml_string = re.sub(r"<hosthint>.*?</hosthint>", "", xml_string, flags=re.DOTALL)
+        if is_xml_file(args.file):
+            xml_parser(args.file)
+            rprint("[green]Creating Mindmap using the provided XML file...[/green]")
+        else:
+            normal_output = file.read()
+            normal_parser(normal_output)
+            rprint("[green]Creating Mindmap using the provided Normal file...[/green]")
 
-
-    ipaddress_with_blank = []
-
-    temp1 = []
-    for x in xml_string.split("\n"):
-        new9 = re.sub(r"<hosthint>.*?</hosthint>", "", str(x), flags=re.DOTALL)
-        new3 = re.findall('\<port protocol\=.*. portid\=.*.\>\<state state\="open" reason\=.*. reason_ttl\=.*.\/\>\<service name\=".*." product\=|\<port protocol\=.*. portid\=.*.\>\<state state\="open" reason\=.*. reason_ttl\=.*.\/\>\<service name\=".*." servicefp\=|\<port protocol\=.*. portid\=.*.\>\<state state\="open" reason\=.*. reason_ttl\=.*.\/\>\<service name\=".*." tunnel\=|\<port protocol\=.*. portid\=.*.\>\<state state\="open" reason\=.*. reason_ttl\=.*.\/\>\<service name\=".*." method\=|\<port protocol\=.*. portid\=.*.\>\<state state\="open" reason\=.*. reason_ttl\=.*.\/\>\<service name\=".*." extrainfo=|\<port protocol\=.*. portid\=.*.\>\<state state\="open" reason\=.*. reason_ttl\=.*.\/\>|<address.*./>',str(new9),)
-        new4 = re.sub('\[\'<address addr="|" addrtype="ipv4" />\'\]|\[\]|\<port protocol="(.*?)" portid="|\>|\<state state="open"|reason\="(.*?)"|product\=|reason_ttl="(.*?)"|\<service name\= \|\/|"|\'|\[|\]|addrstype="ipv4"|\/|servicefp\=|tunnel\=|method\="(.*?)"|extrainfo\="(.*?)"|addrtype\="ipv4"|method\=',"",str(new3),)
-        new5 = re.sub("\/\<service name\=|\<service name\=", ":", str(new4))
-        new6 = re.sub(" ", "", str(new5))
-        temp1.append(new6)
-    new_port_list = [x for x in temp1 if x != ""]
-    new_list = [x for element in new_port_list for x in re.split((":"), element)]
-    new_list2 = [x for x in new_list if x]
-
-    rprint("[green]Fetching Data from XML file ...[/green]")
-    GenerateXML()
-
-    rprint("[green]Mindmap Has Been Generated Succesfully.[/green]")
+rprint("[green]Mindmap Has Been Generated Succesfully.[/green]")

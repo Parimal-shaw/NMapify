@@ -10,7 +10,7 @@ with io.open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
 
 setup(
     name='NMapify',
-    version='0.2',
+    version='0.3',
     description='NMapify is a Python tool that creates mind maps to visualize network layouts using Nmap. It also generates test cases for each identified port to assist pentesters in conducting efficient network pentests.',
     long_description=desc,
     long_description_content_type='text/markdown',

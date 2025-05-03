@@ -13,7 +13,7 @@ rprint(Text(custom_fig.renderText("NMapify"), style="green"))
 rprint(Text("Version 0.3", style="red"))
 
 parser = argparse.ArgumentParser()#description=help_message(), )
-parser.add_argument("-f","--file",dest="file",required=True, help="Nmap XML File Path (path/to/file)")
+parser.add_argument("-f","--file",dest="file",required=True, help="Nmap XML/Text File Path (path/to/file)")
 parser.add_argument("-o","--output",dest="output",required=True, help="Output File Path")
 parser.add_argument("-t","--test_cases",dest="testcases", default='test_cases.yaml',help="Test cases File Path in YAML format only.")
 args = parser.parse_args()

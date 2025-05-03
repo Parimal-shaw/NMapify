@@ -20,7 +20,8 @@ setup(
     install_requires=[
         'pyfiglet==0.8.post1',
         'PyYAML==6.0',
-        'rich==13.3.2'
+        'rich==13.3.2',
+        'lxml==5.4.0'
     ],
     classifiers=[
         'Development Status :: 5 - Production/Stable',

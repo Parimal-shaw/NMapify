@@ -8,7 +8,7 @@ NMapify is a powerful Python-based tool that enables users to generate mind maps
 
 ## Requirements
 
-- NMap XML Output
+- NMap XML/Text Output
 - [Freemind v1.0.1](https://en.softonic.com/download/freemind/windows/post-download/v/1.0.1)
 - Python 3
 
@@ -36,7 +36,7 @@ NMapify is a powerful Python-based tool that enables users to generate mind maps
 The generated output can be opened using Freemind.
 
 ```bash
-python NMapify.py -f nmap-output.xml -o output.mm
+python NMapify.py -f nmap-output.xml/nmap_output.txt -o output.mm
 ```
 
 
